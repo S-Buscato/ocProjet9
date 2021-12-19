@@ -9,4 +9,4 @@ phone VARCHAR(100) NOT NULL,
 sex CHAR NOT NULL
 );
 
-CREATE SEQUENCE public.patient_id_seq;
+ALTER SEQUENCE public.patient_id_seq OWNED BY public.patient.id;
