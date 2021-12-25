@@ -1,5 +1,6 @@
 package com.mediscreen.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Generated;
@@ -27,6 +28,7 @@ public class Patient {
     private String lastname;
 
     @Column(name="dob")
+    @JsonFormat(pattern="dd-MM-yyyy")
     private Date dob;
 
     @Column(name="address")

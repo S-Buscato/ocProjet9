@@ -1,5 +1,8 @@
 package com.mediscreen.service;
 
+import com.mediscreen.dto.PatientDto;
+import com.mediscreen.dto.PatientMapper;
+import com.mediscreen.exception.PatientAllreadyExists;
 import com.mediscreen.model.Patient;
 import com.mediscreen.repositories.PatientRepository;
 import com.mediscreen.service.Iservice.IPatientService;
@@ -7,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -17,26 +19,42 @@ public class PatientService implements IPatientService {
     @Autowired
     PatientRepository patientRepository;
 
+
     @Override
-    public Patient findById(Long id) {
-        return patientRepository.findById(id).get();
+    public PatientDto findById(Long id) {
+        return PatientMapper.INSTANCE.patientToPatientDTO(patientRepository.findById(id).get());
     }
 
     @Override
-    public Patient save(Patient patient) {
-        return patientRepository.save(patient);
+    public PatientDto save(PatientDto patientDto){
+        Patient patient = new Patient();
+        if(patientRepository.findByFamily(patientDto.getFirstname(), patientDto.getLastname()).isPresent()) {
+            patient = patientRepository.findByFamily(patientDto.getFirstname(), patientDto.getLastname()).get();
+            patient.setFirstname(patientDto.getFirstname());
+            patient.setLastname(patientDto.getLastname());
+            patient.setAddress(patientDto.getAddress());
+            patient.setDob(patientDto.getDob());
+            patient.setSex(patientDto.getSex());
+            patient.setPhone(patientDto.getPhone());
+            patient.setAddress(patientDto.getAddress());
+        }
+        return PatientMapper.INSTANCE.patientToPatientDTO(patientRepository.save(patient));
     }
 
     @Override
-    public List<Patient> findAll() {
+    public List<PatientDto> findAll() {
         List<Patient> patients = StreamSupport.stream(patientRepository.findAll().spliterator(),
                 false).collect(Collectors.toList());
 
-        return patients;
+        return PatientMapper.INSTANCE.patientToPatientDTO(patients);
     }
 
     @Override
-    public Optional<Patient> findByFamily(String firstname, String lastname) {
-        return patientRepository.findByFamily(firstname, lastname);
+    public PatientDto findByFamily(String firstname, String lastname) {
+        Patient patient = new Patient();
+        if(patientRepository.findByFamily(firstname, lastname).isPresent()) {
+            patient = patientRepository.findByFamily(firstname, lastname).get();
+        }
+        return PatientMapper.INSTANCE.patientToPatientDTO(patient);
     }
 }
