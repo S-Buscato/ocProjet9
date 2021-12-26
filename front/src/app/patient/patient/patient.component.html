@@ -1,20 +1,9 @@
-<!-- <div class="mx-auto input-group mb-3 col-2">
-    <label for="recherche">Recherche de patient : </label>
-    <input id="recherche" type="text" [formControl]="patientSearch">
-    <button class="btn btn-primary mt-2" (click)="searchPatient()" type="submit">Rechercher</button>
-</div> -->
 <p class="text-center  m-5 h1 text-primary ">Liste des patients</p>
 
-<div class="mx-auto mb-3  col-10">
-    <div *ngFor="let patient of patientList" class="card mx-auto col-4 mt-2">
-        <h2 class="card-title text-capitalize text-primary ">fiche patient {{patient.firstname}} {{patient.lastname}} </h2>
-        <p class="card-text font-weight-bold m-0"></p>
-           <!-- <ul >
-                <li>date de naissance : {{patient.dob}}</li>
-                <li>numéro de téléphone : {{patient.phone}}</li>
-                <li>adresse : {{patient.address}}</li>
-            </ul>     -->
-    </div>
+<div class="mx-auto mb-3  col-10" *ngFor="let patient of patientList" >
+    <button routerLink="/patient/{{patient.id}}"   class="card mx-auto col-4 mt-2">
+        <h2 class="card-title text-capitalize text-primary ">{{patient.firstname}} {{patient.lastname}} </h2>
+    </button>
 </div>
 
 

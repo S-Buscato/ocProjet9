@@ -27,14 +27,22 @@ export class PatientRequestService  {
         .pipe();
       }
 
+  getPatient(id: number): Observable<Patient> {
+      return this.http.get<Patient>(this.urlApi + '/' + id)
+        .pipe();
+    }
+
     addNewPatient(patient: Patient): Observable<Patient> {
-    console.log('post');
       // @ts-ignore
     return this.http.post<Patient>(this.urlApi + '/save', patient, this.httpOptions)
         .pipe(
           retry(1),
           catchError(this.handleError)
-        );
+        )/*.subscribe(
+        res => console.log('HTTP response', res),
+        err => console.log('HTTP Error', err),
+    () => console.log('HTTP request completed.')
+      );*/
     }
 
   // tslint:disable-next-line:typedef no-shadowed-variable
@@ -44,10 +52,11 @@ export class PatientRequestService  {
         // client-side error
         errorMessage = `Error: ${error.error.message}`;
       } else {
+        console.log('err ? ', error.error);
         // server-side error
-        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+        /*errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;*/
+        errorMessage = error.error;
       }
-      console.log(errorMessage);
       return throwError(errorMessage);
     }
 

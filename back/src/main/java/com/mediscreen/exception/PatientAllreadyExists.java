@@ -4,6 +4,6 @@ import com.mediscreen.constant.Messages;
 
 public class PatientAllreadyExists extends Exception {
     public PatientAllreadyExists(){
-        super(Messages.USER_ALREADY_IN_YOUR_FRIENDS_LIST);
+        super(Messages.USER_ALREADY_EXISTS);
     }
 }

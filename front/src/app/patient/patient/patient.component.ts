@@ -29,4 +29,6 @@ export class PatientComponent implements OnInit {
     console.log(this.patientSearch.value);
   }
 
+
+
 }

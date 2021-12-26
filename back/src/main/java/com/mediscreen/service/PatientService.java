@@ -22,21 +22,24 @@ public class PatientService implements IPatientService {
 
     @Override
     public PatientDto findById(Long id) {
+
         return PatientMapper.INSTANCE.patientToPatientDTO(patientRepository.findById(id).get());
     }
 
     @Override
-    public PatientDto save(PatientDto patientDto){
-        Patient patient = new Patient();
-        if(patientRepository.findByFamily(patientDto.getFirstname(), patientDto.getLastname()).isPresent()) {
-            patient = patientRepository.findByFamily(patientDto.getFirstname(), patientDto.getLastname()).get();
+    public PatientDto save(PatientDto patientDto) throws PatientAllreadyExists {
+        if(patientDto.getId() == 0 && patientRepository.findByFamily(patientDto.getFirstname(), patientDto.getLastname()).isPresent()) {
+            throw new PatientAllreadyExists();
+        }
+
+        Patient patient = PatientMapper.INSTANCE.patientDTOtoPatient(findById(patientDto.getId()));
+        if(patient.getId() != 0) {
             patient.setFirstname(patientDto.getFirstname());
             patient.setLastname(patientDto.getLastname());
             patient.setAddress(patientDto.getAddress());
             patient.setDob(patientDto.getDob());
             patient.setSex(patientDto.getSex());
             patient.setPhone(patientDto.getPhone());
-            patient.setAddress(patientDto.getAddress());
         }
         return PatientMapper.INSTANCE.patientToPatientDTO(patientRepository.save(patient));
     }

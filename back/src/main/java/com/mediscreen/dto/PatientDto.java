@@ -21,7 +21,4 @@ public class PatientDto {
     private String phone;
     private Character sex;
 
-
-
-
 }

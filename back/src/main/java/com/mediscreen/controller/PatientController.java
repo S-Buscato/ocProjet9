@@ -27,6 +27,12 @@ public class PatientController {
         return patientService.findAll();
     }
 
+    @GetMapping("/patient/{id}")
+    public PatientDto getPatient(@PathVariable Long id) {
+        logger.info("getPatient");
+        return patientService.findById(id);
+    }
+
     @RequestMapping("/test")
     public String test() {
         logger.info("test");
@@ -34,11 +40,11 @@ public class PatientController {
     }
 
     @PostMapping("/patient/save")
-    public ResponseEntity<PatientDto> addNewPatient(@RequestBody PatientDto patientDto) {
+    public ResponseEntity addNewPatient(@RequestBody PatientDto patientDto) {
         try{
             return ResponseEntity.status(HttpStatus.CREATED).body(patientService.save(patientDto));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(patientDto);
+        } catch (PatientAllreadyExists e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
