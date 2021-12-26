@@ -1,0 +1,15 @@
+<div class="mx-auto mb-3 col-3 bg-light">
+  <p class="text-center text-black">Ajouter un nouveau patient</p>
+  <div class="input-group bg-light ">
+      <form [formGroup]="patientform" (ngSubmit)="onFormSubmit()">
+        <p class="mt-2 mb-1">Nom:              </p> <input class="col-lg-12 " required formControlName="firstname"  placeholder="Nom">
+        <p class="mt-2 mb-1">Prenom:           </p> <input class="col-lg-12 " required formControlName="lastname"  placeholder="Prenom">
+        <p class="mt-2 mb-1">Sex:              </p> <input class="col-lg-12 " required formControlName="sex"  placeholder="Sex">
+        <p class="mt-2 mb-1">Date de naissance: </p> <input class="col-lg-12 " required formControlName="dob"  placeholder="Date de naissance">
+        <p class="mt-2 mb-1">Adresse:          </p> <input class="col-lg-12 " formControlName="address"  placeholder="Adresse">
+        <p class="mt-2 mb-1">Téléphone:        </p> <input class="col-lg-12 " formControlName="phone"  placeholder="Téléphone">
+        <button type="submit" class="justify-content-center btn btn-primary col-6 mt-3">Submit</button>
+      </form>
+    </div>
+</div>
+
