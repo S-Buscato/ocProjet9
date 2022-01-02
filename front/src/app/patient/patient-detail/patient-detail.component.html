@@ -2,10 +2,12 @@
   <div *ngIf="patient" class="mx-auto mb-3 col-10">
     <div  class="card mx-auto col-4 mt-2 p-3">
       <h2 class="card-title text-capitalize text-primary ">{{patient.firstname}} {{patient.lastname}} </h2>
-      <p class="card-text font-weight-bold m-0 ml-2">date de naissance : {{patient.dob}}</p>
-      <p class="card-text font-weight-bold m-0 ml-2">numéro de téléphone : {{patient.phone}}</p>
-      <p class="card-text font-weight-bold m-0 ml-2">adresse : {{patient.address}}</p>
-      <button routerLink="/patient/add/{{patient.id}}" class="ml-5 btn btn-primary mx-auto mb-2 mt-3" >Modifier la fiche</button>
+      <p class="card-text font-weight-bold m-0 ml-2">Date de naissance : {{patient.dob}}</p>
+      <p class="card-text font-weight-bold m-0 ml-2">Sex : {{patient.sex}}</p>
+      <p class="card-text font-weight-bold m-0 ml-2">Numéro de téléphone : {{patient.phone}}</p>
+      <p class="card-text font-weight-bold m-0 ml-2">Adresse : {{patient.address}}</p>
+      <button routerLink="/patients/add/{{patient.id}}" class="ml-5 btn btn-primary  mb-2 mt-3" >Modifier la fiche</button>
+      <button  (click)="deletePatient()" class="ml-5 btn btn-danger  mb-2" >Supprimer la fiche</button>
     </div>
   </div>
 

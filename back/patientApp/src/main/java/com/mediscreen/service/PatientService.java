@@ -3,6 +3,7 @@ package com.mediscreen.service;
 import com.mediscreen.dto.PatientDto;
 import com.mediscreen.dto.PatientMapper;
 import com.mediscreen.exception.PatientAllreadyExists;
+import com.mediscreen.exception.PatientNotFoundException;
 import com.mediscreen.model.Patient;
 import com.mediscreen.repositories.PatientRepository;
 import com.mediscreen.service.Iservice.IPatientService;
@@ -31,16 +32,17 @@ public class PatientService implements IPatientService {
         if(patientDto.getId() == 0 && patientRepository.findByFamily(patientDto.getFirstname(), patientDto.getLastname()).isPresent()) {
             throw new PatientAllreadyExists();
         }
+        Patient patient = new Patient();
 
-        Patient patient = PatientMapper.INSTANCE.patientDTOtoPatient(findById(patientDto.getId()));
-        if(patient.getId() != 0) {
-            patient.setFirstname(patientDto.getFirstname());
-            patient.setLastname(patientDto.getLastname());
-            patient.setAddress(patientDto.getAddress());
-            patient.setDob(patientDto.getDob());
-            patient.setSex(patientDto.getSex());
-            patient.setPhone(patientDto.getPhone());
+        if(patientDto.getId() != 0) {
+            patient = PatientMapper.INSTANCE.patientDTOtoPatient(findById(patientDto.getId()));
         }
+        patient.setFirstname(patientDto.getFirstname());
+        patient.setLastname(patientDto.getLastname());
+        patient.setAddress(patientDto.getAddress());
+        patient.setDob(patientDto.getDob());
+        patient.setSex(patientDto.getSex());
+        patient.setPhone(patientDto.getPhone());
         return PatientMapper.INSTANCE.patientToPatientDTO(patientRepository.save(patient));
     }
 
@@ -59,5 +61,15 @@ public class PatientService implements IPatientService {
             patient = patientRepository.findByFamily(firstname, lastname).get();
         }
         return PatientMapper.INSTANCE.patientToPatientDTO(patient);
+    }
+
+    @Override
+    public PatientDto delete(PatientDto patientDto) throws PatientNotFoundException {
+        if(patientRepository.findById(patientDto.getId()).isPresent()) {
+            patientRepository.deleteById(patientDto.getId());
+            return patientDto;
+        } else {
+            throw new PatientNotFoundException();
+        }
     }
 }

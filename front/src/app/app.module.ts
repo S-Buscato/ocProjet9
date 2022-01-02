@@ -7,6 +7,7 @@ import {MenuComponent} from './menu/menu.component';
 import {PatientModule} from './patient/patient.module';
 import { HttpClientModule } from '@angular/common/http';
 import {HomeComponent} from './home/home.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -15,12 +16,13 @@ import {HomeComponent} from './home/home.component';
     MenuComponent,
     HomeComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    PatientModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        PatientModule,
+        HttpClientModule,
+        ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

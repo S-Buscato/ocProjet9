@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {PatientRequestService} from '../../repositories/patient-request.service';
+import {FormControl, Validators} from '@angular/forms';
 
 
 @Component({
@@ -10,7 +11,11 @@ import {PatientRequestService} from '../../repositories/patient-request.service'
 })
 export class PatientDetailComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private patientRequestService: PatientRequestService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private patientRequestService: PatientRequestService,
+    private router: Router
+  ) { }
   // @ts-ignore
   public patient: Patient;
 
@@ -22,5 +27,20 @@ export class PatientDetailComponent implements OnInit {
         console.log(this.patient);
       }
     );
+  }
+
+  // tslint:disable-next-line:typedef
+  public deletePatient() {
+    if (confirm("voulez-vous vraiment supprimer cette fiche patient ?")) {
+      // @ts-ignore
+      this.patientRequestService.deletePatient(this.patient).subscribe(
+        data => {
+          if (data) {
+            // @ts-ignore
+            this.router.navigate(['patients'], { replaceUrl: this.route });
+          }
+        }
+      );
+    }
   }
 }

@@ -9,9 +9,6 @@ import { PatientRequestService } from 'src/app/repositories/patient-request.serv
   styleUrls: ['./patient.component.css']
 })
 export class PatientComponent implements OnInit {
-  @Input()
-  patientSearch = new FormControl();
-
   public patientList = [];
 
   constructor(private patientRequest: PatientRequestService) {}
@@ -25,9 +22,7 @@ export class PatientComponent implements OnInit {
     );
   }
 
-  public searchPatient() {
-    console.log(this.patientSearch.value);
-  }
+
 
 
 

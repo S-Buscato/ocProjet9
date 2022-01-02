@@ -22,7 +22,7 @@ export class PatientRequestService  {
   constructor(private http: HttpClient) {}
 
 
-    getAllPatient(): Observable<Patient[]> {
+  getAllPatient(): Observable<Patient[]> {
       return this.http.get<Patient[]>(this.urlApi)
         .pipe();
       }
@@ -32,18 +32,39 @@ export class PatientRequestService  {
         .pipe();
     }
 
-    addNewPatient(patient: Patient): Observable<Patient> {
-      // @ts-ignore
-    return this.http.post<Patient>(this.urlApi + '/save', patient, this.httpOptions)
-        .pipe(
-          retry(1),
-          catchError(this.handleError)
-        )/*.subscribe(
+  searchPatient(patient: Patient): Observable<Patient> {
+    return this.http.post<Patient>(this.urlApi + '/search', patient)
+      .pipe(retry(1),
+        catchError(this.handleError)
+      );
+  }
+
+  addNewPatient(patient: Patient): Observable<Patient> {
+    // @ts-ignore
+  return this.http.post<Patient>(this.urlApi + '/save', patient, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )/*.subscribe(
+      res => console.log('HTTP response', res),
+      err => console.log('HTTP Error', err),
+  () => console.log('HTTP request completed.')
+    );*/
+  }
+
+  deletePatient(patient: Patient): Observable<Patient> {
+    // @ts-ignore
+    return this.http.post<Patient>(this.urlApi + '/delete', patient, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )/*.subscribe(
         res => console.log('HTTP response', res),
         err => console.log('HTTP Error', err),
     () => console.log('HTTP request completed.')
       );*/
-    }
+  }
+
 
   // tslint:disable-next-line:typedef no-shadowed-variable
     handleError(error) {

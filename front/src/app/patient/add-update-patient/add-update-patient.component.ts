@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
-import { Patient } from 'src/app/model/patient';
+import {Patient } from 'src/app/model/patient';
 import {PatientRequestService} from '../../repositories/patient-request.service';
-import {Router,ActivatedRoute} from '@angular/router';
-import {error} from 'protractor';
+import {Router, ActivatedRoute} from '@angular/router';
+import {PatientService} from '../patient.service';
 
 
 
@@ -25,6 +25,7 @@ export class AddUpdatePatientComponent implements OnInit {
     private fb: FormBuilder,
     private patientRequestService: PatientRequestService,
     private router: Router,
+    private patientService: PatientService,
   ) { }
 
   ngOnInit(): void {
@@ -34,8 +35,8 @@ export class AddUpdatePatientComponent implements OnInit {
         data => {
           this.patient = data;
           this.patientform = this.fb.group({
-            firstname: new FormControl(this.patient.firstname, Validators.required),
-            lastname: new FormControl(this.patient.lastname, Validators.required),
+            firstname: new FormControl(this.patientService.capitalize(this.patient.firstname), Validators.required),
+            lastname: new FormControl(this.patientService.capitalize(this.patient.lastname), Validators.required),
             dob: new FormControl(this.patient.dob, Validators.required),
             sex: new FormControl(this.patient.sex, Validators.required),
             phone: new FormControl(this.patient.phone ),
@@ -58,21 +59,22 @@ export class AddUpdatePatientComponent implements OnInit {
   // @ts-ignore
   onFormSubmit(): void {
     const patient: Patient = new Patient();
-    patient.id = this.id;
-    patient.firstname = this.patientform.controls.firstname.value;
-    patient.lastname = this.patientform.controls.lastname.value;
+    patient.id = this.id || 0 ;
+    patient.firstname = this.patientService.capitalize(this.patientform.controls.firstname.value);
+    patient.lastname = this.patientService.capitalize(this.patientform.controls.lastname.value);
     patient.dob = this.patientform.controls.dob.value;
     patient.sex = this.patientform.controls.sex.value;
     patient.address = this.patientform.controls.address.value;
     patient.phone = this.patientform.controls.phone.value;
+    console.log('patient : ', patient);
     try {
       this.patientRequestService.addNewPatient(patient).subscribe( data => {
         // @ts-ignore
         if (data){
           // @ts-ignore
-          console.log(' data ', data);
+          console.log(' save data ', data);
           // @ts-ignore
-          this.router.navigate(['patient/' + this.id], { replaceUrl: this.route });
+          this.router.navigate(['patients/' + data.id], { replaceUrl: this.route });
         }
       });
       }catch (error){

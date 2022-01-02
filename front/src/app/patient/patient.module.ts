@@ -7,12 +7,16 @@ import {AddUpdatePatientComponent} from './add-update-patient/add-update-patient
 import { HttpClientModule } from '@angular/common/http';
 import { PatientDetailComponent } from './patient-detail/patient-detail.component';
 import {RouterModule} from '@angular/router';
-
-
+import {PatientSearchComponent} from './patient-search/patient-search.component';
 
 
 @NgModule({
-  declarations: [PatientComponent, AddUpdatePatientComponent, PatientDetailComponent],
+  declarations: [
+    PatientComponent,
+    AddUpdatePatientComponent,
+    PatientDetailComponent,
+    PatientSearchComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,

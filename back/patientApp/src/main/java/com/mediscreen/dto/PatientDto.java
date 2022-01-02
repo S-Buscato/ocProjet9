@@ -15,7 +15,7 @@ public class PatientDto {
     private long id;
     private String firstname;
     private String lastname;
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern="dd/MM/yyyy")
     private Date dob;
     private String address;
     private String phone;

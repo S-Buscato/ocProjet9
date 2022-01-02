@@ -28,7 +28,7 @@ public class Patient {
     private String lastname;
 
     @Column(name="dob")
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern="dd/MM/yyyy")
     private Date dob;
 
     @Column(name="address")
