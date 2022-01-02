@@ -1,6 +1,6 @@
 services:
   patientapp:
-    image: patientapp:latest
+    image: patientapp:v1.0.0
     ports:
       - 9002:9002
     build:
