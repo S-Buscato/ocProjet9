@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.patientapp</groupId>
 	<artifactId>patientapp</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>patientApp</name>
 	<description>view and manage patients</description>
 	<properties>
@@ -71,6 +71,13 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<classifier>exec</classifier>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
