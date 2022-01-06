@@ -1,0 +1,11 @@
+com\noteapp\dto\NoteDto.class
+com\noteapp\service\NoteService.class
+com\noteapp\dto\mapper\NoteMapper.class
+com\noteapp\model\Note.class
+com\noteapp\repositories\NoteRepository.class
+com\noteapp\service\iservice\INoteService.class
+com\noteapp\dto\mapper\NoteMapperImpl.class
+com\noteapp\controller\NoteController.class
+com\noteapp\service\SequenceGeneratorService.class
+com\noteapp\NoteAppApplication.class
+com\noteapp\model\DatabaseSequence.class
