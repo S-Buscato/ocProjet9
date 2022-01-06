@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { PatientRequestService } from 'src/app/repositories/patient-request.service';
 
 
@@ -17,7 +16,6 @@ export class PatientComponent implements OnInit {
     this.patientRequest.getAllPatient().subscribe(
       data => {
         this.patientList = data;
-        console.log(this.patientList);
       }
     );
   }

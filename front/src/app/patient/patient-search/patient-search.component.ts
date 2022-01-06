@@ -40,13 +40,10 @@ export class PatientSearchComponent implements OnInit {
       const patient: Patient = new Patient();
       patient.firstname = this.patientService.capitalize(this.patientform.controls.firstname.value);
       patient.lastname = this.patientService.capitalize(this.patientform.controls.lastname.value);
-      console.log('search patient : ', patient);
       this.formNotComplete = false;
       try {
         this.patientRequestService.searchPatient(patient).subscribe( data => {
           // @ts-ignore
-          // tslint:disable-next-line:triple-equals
-          console.log(' data search ', data);
           if (data.id !== 0){
             // @ts-ignore
             this.patient = data;
@@ -57,7 +54,7 @@ export class PatientSearchComponent implements OnInit {
           }
         });
       }catch (error){
-        console.log('save err', error);
+        console.log('search err', error);
       }
     }else {
       this.formNotComplete = true;

@@ -21,7 +21,7 @@ public interface PatientMapper {
     Patient patientDTOtoPatient(PatientDto dto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    List<PatientDto> patientToPatientDTO(List<Patient> firestationList);
+    List<PatientDto> patientToPatientDTO(List<Patient> patientList);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Patient patientUpdateDtoToPatientUpdate(PatientDto firestationDTO, @MappingTarget Patient entity);
