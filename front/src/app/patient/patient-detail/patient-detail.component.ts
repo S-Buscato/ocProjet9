@@ -29,7 +29,6 @@ export class PatientDetailComponent implements OnInit {
     this.patientRequestService.getPatient(this.id).subscribe(
       data => {
         this.patient = data;
-        console.log(this.patient);
       }
     );
   }
@@ -49,8 +48,6 @@ export class PatientDetailComponent implements OnInit {
                 }
               }
             );
-            // @ts-ignore
-           // this.router.navigate(['patients'], { replaceUrl: this.route });
           }
         }
       );

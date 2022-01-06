@@ -39,9 +39,7 @@ public class NoteController {
     public ResponseEntity addNewNote(@RequestBody NoteDto noteDto) {
         try{
             return ResponseEntity.status(HttpStatus.CREATED).body(noteService.save(noteDto));
-        } /*catch (NoteAllreadyExists e) {
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
-        } */catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }

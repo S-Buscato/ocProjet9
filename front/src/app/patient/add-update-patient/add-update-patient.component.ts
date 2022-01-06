@@ -66,13 +66,10 @@ export class AddUpdatePatientComponent implements OnInit {
     patient.sex = this.patientform.controls.sex.value;
     patient.address = this.patientform.controls.address.value;
     patient.phone = this.patientform.controls.phone.value;
-    console.log('patient : ', patient);
     try {
       this.patientRequestService.addNewPatient(patient).subscribe( data => {
         // @ts-ignore
         if (data){
-          // @ts-ignore
-          console.log(' save data ', data);
           // @ts-ignore
           this.router.navigate(['patients/' + data.id], { replaceUrl: this.route });
         }

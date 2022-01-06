@@ -31,7 +31,7 @@ export class AddUpdateNoteComponent implements OnInit {
         data => {
           this.note = data;
           this.noteform = this.fb.group({
-            note: new FormControl(this.note.note, Validators.required)
+            note: new FormControl(this.note.note, Validators.required),
           });
         }
       );
@@ -47,13 +47,14 @@ export class AddUpdateNoteComponent implements OnInit {
     note.id = this.idNote || 0 ;
     note.patientId = this.idPatient;
     note.note = this.noteform.controls.note.value;
-    console.log('note : ', note);
+    if (this.note !== undefined) {
+      note.createdDate = this.note.createdDate;
+      note.updatedDate = this.note.updatedDate;
+    }
     try {
       this.noteRequestService.addNewPatientNote(note).subscribe( data => {
         // @ts-ignore
         if (data){
-          // @ts-ignore
-          console.log(' save note data ', data);
           // @ts-ignore
           this.router.navigate(['patients/note/' + this.idPatient], { replaceUrl: this.route });
         }

@@ -26,7 +26,6 @@ export class NoteListComponent implements OnInit {
     this.noteRequestService.getPatientNote(this.id).subscribe(
       noteData => {
         this.notes = noteData;
-        console.log(this.notes);
       }
     );
   }
