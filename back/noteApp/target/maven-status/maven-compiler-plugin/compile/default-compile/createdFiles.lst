@@ -1,7 +1,9 @@
 com\noteapp\dto\NoteDto.class
 com\noteapp\service\NoteService.class
 com\noteapp\dto\mapper\NoteMapper.class
+com\noteapp\constant\Messages.class
 com\noteapp\model\Note.class
+com\noteapp\exception\NoteNotFoundException.class
 com\noteapp\repositories\NoteRepository.class
 com\noteapp\service\iservice\INoteService.class
 com\noteapp\dto\mapper\NoteMapperImpl.class

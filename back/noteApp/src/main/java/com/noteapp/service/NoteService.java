@@ -38,12 +38,12 @@ public class NoteService implements INoteService {
     public NoteDto save(NoteDto noteDto) {
         Note note = NoteMapper.INSTANCE.noteDTOtoNote(noteDto);
         Date today = Date.from(Instant.now());
-        System.out.println("date : " + today);
+        //creation
         if(note.getId() == 0) {
             note.setId(sequenceGeneratorService.generateSequence(Note.SEQUENCE_NAME));
             note.setCreatedDate(today);
         };
-
+        //update
         note.setUpdatedDate(today);
         return NoteMapper.INSTANCE.noteToNoteDTO(noteRepository.save(note));
     }

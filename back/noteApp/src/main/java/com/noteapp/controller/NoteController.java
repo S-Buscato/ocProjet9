@@ -21,15 +21,20 @@ public class NoteController {
 
 
     @GetMapping("/note/{id}")
-    public NoteDto getNote(@PathVariable Long id) {
+    public ResponseEntity getNote(@PathVariable Long id) {
         logger.info("getNote");
-        return noteService.findById(id);
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(noteService.findById(id));
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @GetMapping("/note/search/{patientId}")
     public ResponseEntity searchNote(@PathVariable Long patientId) {
         try{
-            return ResponseEntity.status(HttpStatus.CREATED).body(noteService.findAllByPatient(patientId));
+            return ResponseEntity.status(HttpStatus.OK).body(noteService.findAllByPatient(patientId));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }

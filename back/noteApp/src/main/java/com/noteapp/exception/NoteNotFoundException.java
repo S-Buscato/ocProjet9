@@ -1,9 +1,10 @@
 package com.noteapp.exception;
 
-import com.mediscreen.constant.Messages;
+
+import com.noteapp.constant.Messages;
 
 public class NoteNotFoundException extends Exception {
     public NoteNotFoundException(){
-        super(Messages.PATIENT_NOT_FOUND);
+        super(Messages.NOTE_NOT_FOUND);
     }
 }
