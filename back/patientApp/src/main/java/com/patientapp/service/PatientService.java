@@ -1,12 +1,12 @@
-package com.mediscreen.service;
+package com.patientapp.service;
 
-import com.mediscreen.dto.PatientDto;
-import com.mediscreen.dto.PatientMapper;
-import com.mediscreen.exception.PatientAllreadyExists;
-import com.mediscreen.exception.PatientNotFoundException;
-import com.mediscreen.model.Patient;
-import com.mediscreen.repositories.PatientRepository;
-import com.mediscreen.service.Iservice.IPatientService;
+import com.patientapp.dto.PatientDto;
+import com.patientapp.dto.PatientMapper;
+import com.patientapp.exception.PatientAllreadyExists;
+import com.patientapp.exception.PatientNotFoundException;
+import com.patientapp.model.Patient;
+import com.patientapp.repositories.PatientRepository;
+import com.patientapp.service.Iservice.IPatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +22,16 @@ public class PatientService implements IPatientService {
 
 
     @Override
-    public PatientDto findById(Long id) {
-
-        return PatientMapper.INSTANCE.patientToPatientDTO(patientRepository.findById(id).get());
+    public PatientDto findById(Long id) throws PatientNotFoundException{
+        if(patientRepository.findById(id).isPresent()) {
+            return PatientMapper.INSTANCE.patientToPatientDTO(patientRepository.findById(id).get());
+        } else {
+            throw  new PatientNotFoundException();
+        }
     }
 
     @Override
-    public PatientDto save(PatientDto patientDto) throws PatientAllreadyExists {
+    public PatientDto save(PatientDto patientDto) throws PatientAllreadyExists, PatientNotFoundException {
         if(patientDto.getId() == 0 && patientRepository.findByFamily(patientDto.getFirstname(), patientDto.getLastname()).isPresent()) {
             throw new PatientAllreadyExists();
         }
@@ -55,10 +58,12 @@ public class PatientService implements IPatientService {
     }
 
     @Override
-    public PatientDto findByFamily(String firstname, String lastname) {
-        Patient patient = new Patient();
+    public PatientDto findByFamily(String firstname, String lastname) throws PatientNotFoundException {
+        Patient patient;
         if(patientRepository.findByFamily(firstname, lastname).isPresent()) {
             patient = patientRepository.findByFamily(firstname, lastname).get();
+        } else {
+            throw new PatientNotFoundException();
         }
         return PatientMapper.INSTANCE.patientToPatientDTO(patient);
     }

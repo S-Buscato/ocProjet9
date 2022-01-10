@@ -1,6 +1,6 @@
-package com.mediscreen.repositories;
+package com.patientapp.repositories;
 
-import com.mediscreen.model.Patient;
+import com.patientapp.model.Patient;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

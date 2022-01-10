@@ -1,4 +1,4 @@
-package com.mediscreen.model;
+package com.patientapp.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -7,6 +7,7 @@ import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -35,6 +36,7 @@ public class Patient {
     private String address;
 
     @Column(name="phone")
+    @Size(min=10, max=10)
     private String phone;
 
     @Column(name="sex")

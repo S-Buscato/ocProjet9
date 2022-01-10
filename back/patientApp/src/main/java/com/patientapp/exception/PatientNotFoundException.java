@@ -1,6 +1,6 @@
-package com.mediscreen.exception;
+package com.patientapp.exception;
 
-import com.mediscreen.constant.Messages;
+import com.patientapp.constant.Messages;
 
 public class PatientNotFoundException extends Exception {
     public PatientNotFoundException(){

@@ -1,4 +1,4 @@
-package com.mediscreen.constant;
+package com.patientapp.constant;
 
 public class Messages {
     public static final String PATIENT_NOT_FOUND = "Patient non trouvé";

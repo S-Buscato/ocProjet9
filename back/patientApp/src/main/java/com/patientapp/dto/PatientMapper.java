@@ -1,14 +1,12 @@
-package com.mediscreen.dto;
+package com.patientapp.dto;
 
-import com.mediscreen.model.Patient;
+import com.patientapp.model.Patient;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
-import java.util.Optional;
 
 @Mapper(componentModel="spring")
 public interface PatientMapper {
@@ -22,9 +20,6 @@ public interface PatientMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     List<PatientDto> patientToPatientDTO(List<Patient> patientList);
-
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Patient patientUpdateDtoToPatientUpdate(PatientDto firestationDTO, @MappingTarget Patient entity);
 
 }
 

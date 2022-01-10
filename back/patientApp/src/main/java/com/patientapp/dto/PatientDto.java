@@ -1,4 +1,4 @@
-package com.mediscreen.dto;
+package com.patientapp.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
