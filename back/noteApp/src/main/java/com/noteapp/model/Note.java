@@ -1,7 +1,6 @@
 package com.noteapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.mediscreen.model.Patient;
 import lombok.Data;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
@@ -10,8 +9,6 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.Date;
 
 @NoArgsConstructor

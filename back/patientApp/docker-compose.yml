@@ -1,6 +1,34 @@
 services:
+  noteapp:
+    image: noteapp
+    container_name: noteApp
+    depends_on:
+      - dataMongo
+    ports:
+      - 9003:9003
+    environment:
+      SPRING_DATA_MONGODB_HOST: dataMongo
+    build:
+      context: .
+
+  dataMongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_DATABASE=noteapp
+      - MONGO_INITDB_ROOT_USERNAME=
+      - MONGO_INITDB_ROOT_PASSWORD=
+    volumes:
+      - ./mongo-data:/var/lib/mogo/data
+
   patientapp:
     image: patientapp:v1.0.0
+    container_name: PatientApp
     ports:
       - 9002:9002
     build:
@@ -8,13 +36,15 @@ services:
     depends_on:
       - db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/patientapp
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/mediscreen
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=admin
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
+
   db:
     image: postgres
+    container_name: Postgres
     restart: always
     expose:
       - 5432
@@ -23,11 +53,24 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=patientapp
+      - POSTGRES_DB=mediscreen
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
       # copy the sql script to create tables
       - ./sql/scriptSQL.sql:/docker-entrypoint-initdb.d/create_tables.sql
 
+networks:
+  mongo_net:
+    driver: bridge
+    external: true
+
 volumes:
   postgres-data:
+
+
+
+
+
+
+
+
