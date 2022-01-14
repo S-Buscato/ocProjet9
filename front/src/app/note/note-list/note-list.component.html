@@ -1,9 +1,9 @@
-<div class="col-md-12 text-center">
-  <p class="text-center  m-5 h1 text-primary ">Historique du patient</p>
+<div class="col-12 text-center">
+  <p class="text-center m-5 h1 text-primary ">Historique du patient</p>
 
   <button routerLink="/patients/{{id}}" class="text-center m-1 btn btn-secondary" >Retour vers la fiche patient</button>
   <button routerLink="/note/add/{{id}}" class="text-center m-1 ml-5 btn btn-primary">Saisir une nouvelle note</button>
-  <div class="mx-auto mb-3  col-10" *ngFor="let note of notes" >
+  <div class="mx-auto mb-3  col-12" *ngFor="let note of notes" >
       <button routerLink="/note/add/{{id}}/{{note.id}}" class="card mx-auto col-4 mt-2">
         <p class="card-title text-primary ">Crée le {{note.createdDate | date :'dd/MM/yyyy'}} -- Mis à jour le {{note.updatedDate | date :'dd/MM/yyyy'}}</p>
         <p class="card-title text-primary ">{{note.note}}</p>

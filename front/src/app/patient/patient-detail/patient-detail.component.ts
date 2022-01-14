@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PatientRequestService} from '../../repositories/patient-request.service';
-import {FormControl, Validators} from '@angular/forms';
 import {NoteRequestService} from '../../repositories/note-request.service';
 import {Note} from '../../model/note';
 
@@ -23,6 +22,8 @@ export class PatientDetailComponent implements OnInit {
   public patient: Patient;
   public notes: Note[];
   public id: number;
+  public age: number;
+  public risk: string;
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
@@ -31,9 +32,25 @@ export class PatientDetailComponent implements OnInit {
         this.patient = data;
       }
     );
+
+    this.patientRequestService.getAgePatient(this.id).subscribe(
+      data => {
+        this.age = data;
+      }
+    );
   }
 
   // tslint:disable-next-line:typedef
+  public calculPatientRisk() {
+      this.patientRequestService.getCalculatePatientRisk(this.patient.id).subscribe(
+        data => {
+          if (data) {
+            this.risk = data;
+          }
+        }
+      );
+  }
+
   public deletePatient() {
     if (confirm("voulez-vous vraiment supprimer cette fiche patient et tout son historique ?")) {
       // @ts-ignore

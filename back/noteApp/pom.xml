@@ -184,7 +184,7 @@
 							<archive>
 								<manifest>
 									<mainClass>
-										com.safetynet.alerts.AlertsApplication
+										com.noteapp.NoteAppApplication
 									</mainClass>
 								</manifest>
 							</archive>

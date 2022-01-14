@@ -22,7 +22,7 @@ public class NoteController {
 
     @GetMapping("/note/{id}")
     public ResponseEntity getNote(@PathVariable Long id) {
-        logger.info("getNote");
+        logger.info("getNote " + id);
         try{
             return ResponseEntity.status(HttpStatus.OK).body(noteService.findById(id));
         }
@@ -33,6 +33,7 @@ public class NoteController {
 
     @GetMapping("/note/search/{patientId}")
     public ResponseEntity searchNote(@PathVariable Long patientId) {
+        logger.info("searchNote patient " + patientId);
         try{
             return ResponseEntity.status(HttpStatus.OK).body(noteService.findAllByPatient(patientId));
         } catch (Exception e) {
@@ -42,6 +43,7 @@ public class NoteController {
 
     @PostMapping("/note/save")
     public ResponseEntity addNewNote(@RequestBody NoteDto noteDto) {
+        logger.info("addNewNote  " + noteDto.getNote());
         try{
             return ResponseEntity.status(HttpStatus.CREATED).body(noteService.save(noteDto));
         } catch (Exception e) {
@@ -51,6 +53,7 @@ public class NoteController {
 
     @PostMapping("/note/delete")
     public ResponseEntity deleteNote(@RequestBody NoteDto noteDto) {
+        logger.info("deleteNote  ");
         try{
             return ResponseEntity.status(HttpStatus.OK).body(noteService.delete(noteDto));
         } catch (NoteNotFoundException e) {
@@ -61,7 +64,8 @@ public class NoteController {
     }
 
     @PostMapping("/note/deleteAll/{patientId}")
-    public ResponseEntity deleteNote(@PathVariable long patientId) {
+    public ResponseEntity deleteAllPatientNote(@PathVariable long patientId) {
+        logger.info("deleteAllPatientNote " + patientId);
         try{
             return ResponseEntity.status(HttpStatus.OK).body(noteService.deleteAllPatientNote(patientId));
         } catch (NoteNotFoundException e) {

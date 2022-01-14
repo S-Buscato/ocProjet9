@@ -1,4 +1,4 @@
-package com.example.mediscreen;
+package com.mediscreen.mediscreen;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

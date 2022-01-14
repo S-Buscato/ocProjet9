@@ -10,7 +10,7 @@ import {Note} from '../model/note';
 })
 export class NoteRequestService {
 
-  urlApi = 'http://localhost:9003/note';  // URL de l'API
+  urlApi = 'http://localhost:8080/note';  // URL de l'API
 
   httpOptions = {
     headers: new HttpHeaders({

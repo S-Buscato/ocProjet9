@@ -36,7 +36,6 @@ public class Patient {
     private String address;
 
     @Column(name="phone")
-    @Size(min=10, max=10)
     private String phone;
 
     @Column(name="sex")

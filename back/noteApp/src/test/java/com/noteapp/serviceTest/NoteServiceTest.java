@@ -72,7 +72,7 @@ public class NoteServiceTest {
        List<NoteDto> noteDtos1 = noteService.findAllByPatient(anyLong());
 
         Assertions.assertEquals(1, noteDtos1.size());
-        verify(noteRepository, times(1)).findAllByPatientIdOrderByIdDesc(anyLong());
+        verify(noteRepository, times(2)).findAllByPatientIdOrderByIdDesc(anyLong());
     }
 
 

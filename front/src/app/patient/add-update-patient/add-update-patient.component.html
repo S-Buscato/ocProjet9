@@ -1,13 +1,23 @@
-<div class="mx-auto mb-3 col-3 bg-light">
-  <p class="text-center font-weight-bold text-black">Ajouter un nouveau patient</p>
+<div class="mx-auto mt-5 mb-3 col-4 bg-light">
+  <h3 class="text-center font-weight-bold text-black">{{title}}</h3>
   <div class="input-group bg-light card p-2">
       <form [formGroup]="patientform" (ngSubmit)="onFormSubmit()" >
-        <p class="card-text mt-2 mb-1">Nom:              </p> <input class="col-lg-12 " required formControlName="firstname"  placeholder="Nom">
-        <p class="card-text mt-2 mb-1">Prenom:           </p> <input class="col-lg-12 " required formControlName="lastname"  placeholder="Prenom">
-        <p class="card-text mt-2 mb-1">Sex:              </p> <input class="col-lg-12 " required formControlName="sex"  placeholder="M - F">
-        <p class="card-text mt-2 mb-1">Date de naissance : </p> <input class="col-lg-12 " required formControlName="dob"  placeholder="JJ/MM/AAAA">
-        <p class="card-text mt-2 mb-1">Adresse :          </p> <input class="col-lg-12 " formControlName="address"  placeholder="Adresse">
-        <p class="card-text mt-2 mb-1">Téléphone :        </p> <input class="col-lg-12 " formControlName="phone"  placeholder="0011223344">
+        <p class="card-text mt-2 mb-1">Nom:              </p>
+          <input class="col-lg-12 " required formControlName="firstname"  placeholder="Nom">
+        <p class="card-text mt-2 mb-1">Prenom:           </p>
+          <input class="col-lg-12 " required formControlName="lastname"  placeholder="Prenom">
+        <p class="card-text mt-2 mb-1">Sex:              </p>
+          <input class="col-lg-12 " required formControlName="sex" maxlength="1" placeholder="M - F">
+        <p class="card-text mt-2 mb-1">Date de naissance : </p>
+<!--
+          <input class="col-lg-12 " required formControlName="dob"  placeholder="JJ/MM/AAAA">
+-->
+        <input class="col-lg-12 " min="1900-01-01" max="2002-12-31" type="date" required formControlName="dob"  placeholder="JJ/MM/AAAA">
+
+        <p class="card-text mt-2 mb-1">Adresse :          </p>
+          <input class="col-lg-12 " formControlName="address"  placeholder="Adresse">
+        <p class="card-text mt-2 mb-1">Téléphone :        </p>
+          <input class="col-lg-12 " formControlName="phone"  placeholder="0011223344">
         <button type="submit" class="col-12 mx-auto btn btn-primary mt-3">Valider</button>
       </form>
   </div>

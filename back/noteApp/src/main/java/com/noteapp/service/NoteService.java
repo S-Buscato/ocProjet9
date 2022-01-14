@@ -1,5 +1,6 @@
 package com.noteapp.service;
 
+import com.noteapp.controller.NoteController;
 import com.noteapp.dto.NoteDto;
 import com.noteapp.dto.mapper.NoteMapper;
 import com.noteapp.exception.NoteNotFoundException;
@@ -11,8 +12,10 @@ import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 public class NoteService implements INoteService {
@@ -22,9 +25,14 @@ public class NoteService implements INoteService {
     @Autowired
     SequenceGeneratorService sequenceGeneratorService;
 
+    static Logger logger = Logger.getLogger(String.valueOf(NoteService.class));
+
+
     @Override
     public NoteDto findById(Long id) {
-        return NoteMapper.INSTANCE.noteToNoteDTO(noteRepository.findNotesById(id));
+        NoteDto noteDto = NoteMapper.INSTANCE.noteToNoteDTO(noteRepository.findNotesById(id));
+        logger.info("noteServide findById return Note : " + noteDto.getNote());
+        return noteDto;
     }
 
     @Override
@@ -50,7 +58,10 @@ public class NoteService implements INoteService {
 
     @Override
     public List<NoteDto> findAllByPatient(Long patientId) {
-        List<Note> notes = patientId == null ? noteRepository.findAll() : noteRepository.findAllByPatientIdOrderByIdDesc(patientId);
+        List<Note> notes = new ArrayList<>();
+        if(noteRepository.findAllByPatientIdOrderByIdDesc(patientId) != null) {
+            notes = noteRepository.findAllByPatientIdOrderByIdDesc(patientId);
+        }
         return NoteMapper.INSTANCE.noteToNoteDTOList(notes);
     }
 
@@ -68,8 +79,6 @@ public class NoteService implements INoteService {
     public long deleteAllPatientNote(Long patientId) throws NoteNotFoundException {
         if(!noteRepository.findAllByPatientIdOrderByIdDesc(patientId).isEmpty()) {
             noteRepository.deleteAllByPatientId(patientId);
-        }else {
-            throw new NoteNotFoundException();
         }
         return patientId;
     }
