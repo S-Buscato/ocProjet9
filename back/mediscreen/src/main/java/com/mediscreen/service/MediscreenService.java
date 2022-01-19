@@ -79,11 +79,12 @@ public class MediscreenService {
         char sex = Character.toUpperCase(patientBean.getSex());
         int age = determinateAge(patientId);
         int counter = 0;
-
+        //todo voir pour faire un SET afin de filtrer les motcle dans les notes
         for(NoteBean note:noteBeanList) {
             for(String value:motCle){
                 String textNote;
-                textNote =  note.getNote().toUpperCase();
+                textNote = note.getNote().toUpperCase();
+                //todo voir ce qu'il fait des accents
                 if(textNote.contains(value.toUpperCase())) {
                     counter += 1;
                 }

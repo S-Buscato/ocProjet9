@@ -1,7 +1,6 @@
 package com.mediscreen.proxies;
 
 import com.mediscreen.beans.PatientBean;
-import com.patientapp.dto.PatientDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name = "microservice-patient", url = "localhost:9002")
+@FeignClient(name = "microservice-patient", url = "PatientApp:9002")
 public interface MicroservicePatientProxy {
 
     @GetMapping("/patient")
