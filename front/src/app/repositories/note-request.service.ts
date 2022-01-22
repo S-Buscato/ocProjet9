@@ -50,9 +50,9 @@ export class NoteRequestService {
     );*/
   }
 
-  deletePatientNote(note: Note): Observable<Note> {
+  deletePatientNote(id: number): Observable<any> {
     // @ts-ignore
-    return this.http.post<Note>(this.urlApi + '/delete', note, this.httpOptions)
+    return this.http.delete(this.urlApi + '/delete/' + id, this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)
@@ -65,7 +65,7 @@ export class NoteRequestService {
 
   deleteAllPatientNote(patientId: number): Observable<number> {
     // @ts-ignore
-    return this.http.post<number>(this.urlApi + '/deleteAll/' + patientId)
+    return this.http.delete<number>(this.urlApi + '/deleteAll/' + patientId)
       .pipe(
         retry(1),
         catchError(this.handleError)

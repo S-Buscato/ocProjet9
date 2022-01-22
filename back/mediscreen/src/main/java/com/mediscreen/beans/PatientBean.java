@@ -3,7 +3,6 @@ package com.mediscreen.beans;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter

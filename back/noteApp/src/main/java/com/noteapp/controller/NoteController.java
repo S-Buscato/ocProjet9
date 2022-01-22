@@ -3,6 +3,8 @@ package com.noteapp.controller;
 import com.noteapp.dto.NoteDto;
 import com.noteapp.exception.NoteNotFoundException;
 import com.noteapp.service.NoteService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.logging.Logger;
 
 @RestController
+@Api("API pour les opérations CRUD sur les notes des patients.")
 @CrossOrigin(origins = "http://localhost:4200")
 public class NoteController {
 
@@ -20,6 +23,7 @@ public class NoteController {
     static Logger logger = Logger.getLogger(String.valueOf(NoteController.class));
 
 
+    @ApiOperation(value = "Récupère une note grâce à son ID")
     @GetMapping("/note/{id}")
     public ResponseEntity getNote(@PathVariable Long id) {
         logger.info("getNote " + id);
@@ -31,6 +35,7 @@ public class NoteController {
         }
     }
 
+    @ApiOperation(value = "Récupère toutes les notes d'un patient grâce à l'ID du patient")
     @GetMapping("/note/search/{patientId}")
     public ResponseEntity searchNote(@PathVariable Long patientId) {
         logger.info("searchNote patient " + patientId);
@@ -41,9 +46,10 @@ public class NoteController {
         }
     }
 
+    @ApiOperation(value = "Enregistre ou met à jour une note")
     @PostMapping("/note/save")
     public ResponseEntity addNewNote(@RequestBody NoteDto noteDto) {
-        logger.info("addNewNote  " + noteDto.getNote());
+        logger.info("addNewNote " + noteDto.getNote());
         try{
             return ResponseEntity.status(HttpStatus.CREATED).body(noteService.save(noteDto));
         } catch (Exception e) {
@@ -51,11 +57,12 @@ public class NoteController {
         }
     }
 
-    @PostMapping("/note/delete")
-    public ResponseEntity deleteNote(@RequestBody NoteDto noteDto) {
-        logger.info("deleteNote  ");
+    @ApiOperation(value = "Efface une note grâce à son ID")
+    @DeleteMapping("/note/delete/{noteId}")
+    public ResponseEntity deleteNote(@PathVariable long noteId) {
+        logger.info("deleteNote " + noteId);
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(noteService.delete(noteDto));
+            return ResponseEntity.status(HttpStatus.OK).body(noteService.delete(noteId));
         } catch (NoteNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
@@ -63,7 +70,8 @@ public class NoteController {
         }
     }
 
-    @PostMapping("/note/deleteAll/{patientId}")
+    @ApiOperation(value = "Efface toutes les notes d'un patient grâce à l'ID patient")
+    @DeleteMapping("/note/deleteAll/{patientId}")
     public ResponseEntity deleteAllPatientNote(@PathVariable long patientId) {
         logger.info("deleteAllPatientNote " + patientId);
         try{

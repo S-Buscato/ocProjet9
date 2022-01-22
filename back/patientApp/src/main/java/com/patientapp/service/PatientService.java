@@ -69,10 +69,10 @@ public class PatientService implements IPatientService {
     }
 
     @Override
-    public PatientDto delete(PatientDto patientDto) throws PatientNotFoundException {
-        if(patientRepository.findById(patientDto.getId()).isPresent()) {
-            patientRepository.deleteById(patientDto.getId());
-            return patientDto;
+    public long delete(Long id) throws PatientNotFoundException {
+        if(patientRepository.findById(id).isPresent()) {
+            patientRepository.deleteById(id);;
+            return id;
         } else {
             throw new PatientNotFoundException();
         }

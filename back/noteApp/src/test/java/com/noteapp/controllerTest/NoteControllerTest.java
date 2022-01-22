@@ -108,17 +108,15 @@ public class NoteControllerTest {
     @DisplayName("test delete note succes")
     void testDeleteNote() throws Exception {
 
-        when(noteService.delete(any(NoteDto.class))).thenReturn(noteDto);
+        when(noteService.delete(anyLong())).thenReturn(1L);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/note/delete")
+        mockMvc.perform(MockMvcRequestBuilders.delete("/note/delete/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(noteDto))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$", is(1)));
 
-                .andExpect(jsonPath("$.patientId", is(1)));
-
-        verify(noteService, times(1)).delete(any(NoteDto.class));
+        verify(noteService, times(1)).delete(anyLong());
     }
 
     @Test
@@ -126,15 +124,14 @@ public class NoteControllerTest {
     void testDeleteNoteNotFoundException() throws Exception {
         NoteNotFoundException e = new NoteNotFoundException();
 
-        when(noteService.delete(any(NoteDto.class))).thenThrow(e);
+        when(noteService.delete(anyLong())).thenThrow(e);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/note/delete")
+        mockMvc.perform(MockMvcRequestBuilders.delete("/note/delete/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(noteDto))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
 
-        verify(noteService, times(1)).delete(any(NoteDto.class));
+        verify(noteService, times(1)).delete(anyLong());
     }
 
     @Test
@@ -143,7 +140,7 @@ public class NoteControllerTest {
 
         when(noteService.deleteAllPatientNote(anyLong())).thenReturn(1L);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/note/deleteAll/1")
+        mockMvc.perform(MockMvcRequestBuilders.delete("/note/deleteAll/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

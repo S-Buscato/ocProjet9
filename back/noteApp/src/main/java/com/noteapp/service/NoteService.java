@@ -1,6 +1,5 @@
 package com.noteapp.service;
 
-import com.noteapp.controller.NoteController;
 import com.noteapp.dto.NoteDto;
 import com.noteapp.dto.mapper.NoteMapper;
 import com.noteapp.exception.NoteNotFoundException;
@@ -66,13 +65,13 @@ public class NoteService implements INoteService {
     }
 
     @Override
-    public NoteDto delete(NoteDto noteDto) throws NoteNotFoundException {
-        if(noteRepository.findById(noteDto.getId()).isPresent()) {
-            noteRepository.deleteById(noteDto.getId());
+    public long delete(long noteId) throws NoteNotFoundException {
+        if(noteRepository.findById(noteId).isPresent()) {
+            noteRepository.deleteById(noteId);
         } else {
             throw new NoteNotFoundException();
         }
-        return noteDto;
+        return noteId;
     }
 
     @Override

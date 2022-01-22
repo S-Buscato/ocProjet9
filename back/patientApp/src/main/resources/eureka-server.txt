@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: microservice-mediscreen-patient-app
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    tomcat:
+      test-on-borrow: true
+    validationQuery: SELECT 1
+    test-while-idle: true
+
+  port: 0
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: update
+      naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      dialect: org.hibernate.dialect.PostgreSQLDialect

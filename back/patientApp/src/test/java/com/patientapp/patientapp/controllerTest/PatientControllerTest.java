@@ -184,31 +184,28 @@ public class PatientControllerTest {
     void testDeletePatientNotFoundException() throws Exception {
         PatientNotFoundException e = new PatientNotFoundException();
 
-        when(patientService.delete(any(PatientDto.class))).thenThrow(e);
+        when(patientService.delete(anyLong())).thenThrow(e);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/patient/delete")
+        mockMvc.perform(MockMvcRequestBuilders.delete("/patient/delete/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(patientDto))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
 
-        verify(patientService, times(1)).delete(any(PatientDto.class));
+        verify(patientService, times(1)).delete(anyLong());
     }
 
     @Test
     @DisplayName("test delete patient succes")
     void testDeletePatient() throws Exception {
 
-        when(patientService.delete(any(PatientDto.class))).thenReturn(patientDto);
+        when(patientService.delete(anyLong())).thenReturn(1L);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/patient/delete")
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/patient/delete/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(patientDto))
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isAccepted())
+                        .andExpect(status().isAccepted());
 
-                .andExpect(jsonPath("$.firstname", is(patientDto.getFirstname())));
-
-        verify(patientService, times(1)).delete(any(PatientDto.class));
+        verify(patientService, times(1)).delete(anyLong());
     }
 }

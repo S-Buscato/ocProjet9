@@ -54,7 +54,7 @@ export class PatientDetailComponent implements OnInit {
   public deletePatient() {
     if (confirm("voulez-vous vraiment supprimer cette fiche patient et tout son historique ?")) {
       // @ts-ignore
-      this.patientRequestService.deletePatient(this.patient).subscribe(
+      this.patientRequestService.deletePatient(this.patient.id).subscribe(
         data => {
           if (data) {
             this.noteRequestService.deleteAllPatientNote(this.id).subscribe(

@@ -15,6 +15,6 @@ public interface INoteService {
 
     NoteDto save(NoteDto noteDto);
     List<NoteDto> findAllByPatient(Long patientId);
-    NoteDto delete(NoteDto noteDto) throws NoteNotFoundException;
+    long delete(long noteId) throws NoteNotFoundException;
     long deleteAllPatientNote(Long patientId) throws NoteNotFoundException;
 }

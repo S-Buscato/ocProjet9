@@ -5,6 +5,7 @@
       <list>
         <option value="$PROJECT_DIR$/noteApp/noteApp/pom.xml" />
         <option value="$PROJECT_DIR$/patientApp/pom.xml" />
+        <option value="$PROJECT_DIR$/mediscreen/pom.xml" />
       </list>
     </option>
   </component>

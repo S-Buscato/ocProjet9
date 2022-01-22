@@ -109,7 +109,7 @@ public class NoteServiceTest {
 
         when(noteRepository.findById(1L)).thenReturn(Optional.ofNullable(note));
 
-        noteService.delete(noteDto);
+        noteService.delete(1L);
 
         verify(noteRepository, times(1)).deleteById(anyLong());
         verify(noteRepository, times(1)).findById(1L);
@@ -136,7 +136,7 @@ public class NoteServiceTest {
         when(noteRepository.findById(anyLong())).thenReturn(Optional.ofNullable(null));
 
         NoteNotFoundException exception = Assertions.assertThrows(NoteNotFoundException.class, () -> {
-            noteService.delete(noteDto);
+            noteService.delete(1L);
         });
 
         Assertions.assertEquals(Messages.NOTE_NOT_FOUND,exception.getMessage() );

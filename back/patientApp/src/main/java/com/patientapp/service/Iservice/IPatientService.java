@@ -12,6 +12,6 @@ public interface IPatientService {
     PatientDto save(PatientDto patientDto) throws PatientAllreadyExists, PatientNotFoundException;
     List<PatientDto> findAll();
     PatientDto findByFamily(String firstname, String lastname) throws PatientNotFoundException;
-    PatientDto delete(PatientDto PatientDto) throws PatientNotFoundException;
+    long delete(Long patientId) throws PatientNotFoundException;
 
 }

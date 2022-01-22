@@ -150,7 +150,7 @@ public class PatientServiceTest {
 
         when(patientRepository.findById(1L)).thenReturn(Optional.ofNullable(patient));
 
-        patientService.delete(patientDto);
+        patientService.delete(1L);
 
         verify(patientRepository, times(1)).deleteById(anyLong());
         verify(patientRepository, times(1)).findById(1L);

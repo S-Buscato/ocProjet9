@@ -73,7 +73,7 @@ export class AddUpdateNoteComponent implements OnInit {
   public deleteNote() {
     if (confirm("voulez-vous vraiment supprimer cette note patient ?")) {
       // @ts-ignore
-      this.noteRequestService.deletePatientNote(this.note).subscribe(
+      this.noteRequestService.deletePatientNote(this.idNote).subscribe(
         data => {
           if (data) {
             // @ts-ignore

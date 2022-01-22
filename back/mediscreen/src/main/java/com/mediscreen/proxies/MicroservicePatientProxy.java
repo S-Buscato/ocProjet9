@@ -2,14 +2,14 @@ package com.mediscreen.proxies;
 
 import com.mediscreen.beans.PatientBean;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/*
 @FeignClient(name = "microservice-patient", url = "PatientApp:9002")
+*/
+@FeignClient(name = "microservice-patient", url = "localhost:9002")
 public interface MicroservicePatientProxy {
 
     @GetMapping("/patient")
@@ -24,7 +24,7 @@ public interface MicroservicePatientProxy {
     @PostMapping("/patient/save")
     PatientBean addNewPatient(@RequestBody PatientBean patientBean);
 
-    @PostMapping("/patient/delete")
-    PatientBean deletePatient(@RequestBody PatientBean patientBean);
+    @DeleteMapping("/patient/delete/{id}")
+    Long deletePatient(@PathVariable Long id);
 
 }

@@ -1,4 +1,5 @@
 com\noteapp\dto\NoteDto.class
+com\noteapp\configuration\SwaggerConfig.class
 com\noteapp\service\NoteService.class
 com\noteapp\dto\mapper\NoteMapper.class
 com\noteapp\constant\Messages.class

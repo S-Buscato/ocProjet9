@@ -61,8 +61,9 @@ export class PatientRequestService  {
     );*/
   }
 
-  deletePatient(patient: Patient): Observable<Patient> {
-    return this.http.post<Patient>(this.urlApi + '/delete', patient, this.httpOptions)
+  deletePatient(id: number): Observable<number> {
+    // @ts-ignore
+    return this.http.delete(this.urlApi + '/delete/' + id, this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)
