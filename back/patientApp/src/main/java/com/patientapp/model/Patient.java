@@ -7,6 +7,7 @@ import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -22,12 +23,15 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "firstname is mandatory")
     @Column(name="firstname")
     private String firstname;
 
+    @NotBlank(message = "lastname is mandatory")
     @Column(name="lastname")
     private String lastname;
 
+    @NotBlank(message = "date of birth is mandatory")
     @Column(name="dob")
     @JsonFormat(pattern="dd/MM/yyyy")
     private Date dob;
@@ -38,6 +42,7 @@ public class Patient {
     @Column(name="phone")
     private String phone;
 
+    @NotBlank(message = "sex is mandatory")
     @Column(name="sex")
     private Character sex;
 }

@@ -5,6 +5,7 @@ import {NoteRequestService} from '../../repositories/note-request.service';
 import {Note} from '../../model/note';
 
 
+
 @Component({
   selector: 'app-patient-detail',
   templateUrl: './patient-detail.component.html',
@@ -42,13 +43,31 @@ export class PatientDetailComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   public calculPatientRisk() {
-      this.patientRequestService.getCalculatePatientRisk(this.patient.id).subscribe(
+    this.risk = null;
+    this.patientRequestService.getCalculatePatientRisk(this.patient.id).subscribe(
         data => {
           if (data) {
             this.risk = data;
           }
         }
       );
+  }
+
+  // tslint:disable-next-line:typedef
+  public calculPatientRiskWhithoutDouble() {
+    this.risk = null;
+    this.patientRequestService.getCalculatePatientRiskWhithoutDouble(this.patient.id).subscribe(
+      data => {
+        if (data) {
+          this.risk = data;
+        }
+      }
+    );
+  }
+
+  // tslint:disable-next-line:typedef
+  public close() {
+    this.risk = null;
   }
 
   public deletePatient() {

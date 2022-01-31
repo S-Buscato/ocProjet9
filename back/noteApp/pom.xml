@@ -230,6 +230,7 @@
 				<version>0.8.5</version>
 				<configuration>
 					<excludes>
+						<exclude>com/noteapp/constant/*.*</exclude>
 						<exclude>com/noteapp/dto/*Dto.*</exclude>
 						<exclude>**/lib/*</exclude>
 					</excludes>

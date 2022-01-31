@@ -12,6 +12,5 @@ public class MediscreenApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MediscreenApplication.class, args);
 	}
-
 }
 

@@ -1,4 +1,10 @@
 services:
+  discovery:
+    container_name: Discovery
+    image: mediscreen-server:v1.0.0
+    ports:
+      - 8761:8761
+
   mediscreen:
     image: mediscreen:v1.0.0
     container_name: Mediscreen
@@ -9,18 +15,27 @@ services:
     depends_on:
       - noteapp
       - patientapp
+      - discovery
+
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://discovery:8761/eureka
+
 
   noteapp:
     image: noteapp
     container_name: noteApp
     depends_on:
       - Mongo
+      - discovery
+
     ports:
       - 9003:9003
     environment:
       SPRING_DATA_MONGODB_HOST: mongo:27017
+      eureka.client.serviceUrl.defaultZone: http://discovery:8761/eureka
     build:
       context: .
+
 
   Mongo:
     image: mongo
@@ -42,15 +57,19 @@ services:
     container_name: PatientApp
     ports:
       - 9002:9002
+    depends_on:
+        - discovery
+        - db
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://discovery:8761/eureka
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/mediscreen
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     build:
       context: .
-    depends_on:
-      - db
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/mediscreen
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=admin
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+
 
 
   db:

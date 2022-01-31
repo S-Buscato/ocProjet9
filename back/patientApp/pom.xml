@@ -254,6 +254,7 @@
 				<version>0.8.5</version>
 				<configuration>
 					<excludes>
+						<exclude>com/patientapp/constant/*.*</exclude>
 						<exclude>com/patientapp/dto/*DTO.*</exclude>
 					</excludes>
 				</configuration>

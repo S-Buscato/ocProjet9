@@ -3,6 +3,7 @@ package com.patientapp.patientapp.serviceTest.IT;
 import com.patientapp.dto.PatientDto;
 import com.patientapp.exception.PatientAllreadyExists;
 import com.patientapp.exception.PatientNotFoundException;
+import com.patientapp.exception.RequiredInputException;
 import com.patientapp.repositories.PatientRepository;
 import com.patientapp.service.PatientService;
 import org.junit.jupiter.api.Assertions;
@@ -28,7 +29,7 @@ public class PatientServiceIT {
 
     @Test
     @DisplayName("test add one Patient Success")
-    void testSavePatient() throws PatientAllreadyExists, PatientNotFoundException {
+    void testSavePatient() throws PatientAllreadyExists, PatientNotFoundException, RequiredInputException {
 
         PatientDto patientDto = new PatientDto();
         patientDto.setPhone("0102030405");

@@ -1,5 +1,9 @@
 <div class="mx-auto mt-5 mb-3 col-4 bg-light">
   <h3 class="text-center font-weight-bold text-black">{{title}}</h3>
+  <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Erreur, veuillez vérifier le formulaire : {{error}}</strong>
+    <button type="button" class="btn-close" (click)="close($event)" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
   <div class="input-group bg-light card p-2">
       <form [formGroup]="patientform" (ngSubmit)="onFormSubmit()" >
         <p class="card-text mt-2 mb-1">Nom:              </p>

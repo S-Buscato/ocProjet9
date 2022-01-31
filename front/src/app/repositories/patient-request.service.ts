@@ -42,6 +42,11 @@ export class PatientRequestService  {
       .pipe();
   }
 
+  getCalculatePatientRiskWhithoutDouble(id: number): Observable<any> {
+    return this.http.get(this.urlApi + '/calulateRiskWithoutDouble/' + id, { responseType: 'text' })
+      .pipe();
+  }
+
   searchPatient(patient: Patient): Observable<Patient> {
     return this.http.post<Patient>(this.urlApi + '/search', patient)
       .pipe(retry(1),
@@ -50,11 +55,11 @@ export class PatientRequestService  {
   }
 
   addNewPatient(patient: Patient): Observable<Patient> {
-  return this.http.post<Patient>(this.urlApi + '/save', patient, this.httpOptions)
-      .pipe(
+  return this.http.post<Patient>(this.urlApi + '/save', patient, this.httpOptions);
+      /*.pipe(
         retry(1),
         catchError(this.handleError)
-      ); /*.subscribe(
+      )*/; /*.subscribe(
       res => console.log('HTTP response', res),
       err => console.log('HTTP Error', err),
   () => console.log('HTTP request completed.')

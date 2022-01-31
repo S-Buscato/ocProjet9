@@ -6,6 +6,7 @@ import com.patientapp.exception.PatientAllreadyExists;
 import com.patientapp.exception.PatientNotFoundException;
 import com.patientapp.model.Patient;
 import com.patientapp.service.PatientService;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,13 +33,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@RequiredArgsConstructor(onConstructor =  @__(@Autowired))
 public class PatientControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    ObjectMapper objectMapper;
+    private final MockMvc mockMvc;
+    private final ObjectMapper objectMapper;
 
     @MockBean
     PatientService patientService;

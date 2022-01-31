@@ -4,9 +4,11 @@ import com.patientapp.constant.Messages;
 import com.patientapp.dto.PatientDto;
 import com.patientapp.exception.PatientAllreadyExists;
 import com.patientapp.exception.PatientNotFoundException;
+import com.patientapp.exception.RequiredInputException;
 import com.patientapp.model.Patient;
 import com.patientapp.repositories.PatientRepository;
 import com.patientapp.service.PatientService;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,15 +17,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(classes = PatientService.class)
+@RequiredArgsConstructor(onConstructor =  @__(@Autowired))
 public class PatientServiceTest {
 
-    @Autowired
-    PatientService patientService;
+    private final  PatientService patientService;
 
     @MockBean
     PatientRepository patientRepository;
@@ -103,7 +109,7 @@ public class PatientServiceTest {
 
     @Test
     @DisplayName("test save Patient ")
-    void testSavePatient() throws PatientAllreadyExists, PatientNotFoundException {
+    void testSavePatient() throws PatientAllreadyExists, PatientNotFoundException, RequiredInputException {
         when(patientRepository.save(any(Patient.class))).thenReturn(patient);
 
         PatientDto patientDto1 = patientService.save(patientDto);
@@ -128,7 +134,7 @@ public class PatientServiceTest {
 
     @Test
     @DisplayName("test update Patient ")
-    void testUpdatePatient() throws PatientAllreadyExists, PatientNotFoundException {
+    void testUpdatePatient() throws PatientAllreadyExists, PatientNotFoundException, RequiredInputException {
         patientDto.setId(1L);
         patientDto.setFirstname("John");
         patient.setFirstname("John");

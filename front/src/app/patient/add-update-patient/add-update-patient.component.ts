@@ -20,6 +20,7 @@ export class AddUpdatePatientComponent implements OnInit {
   public patient: Patient;
   public id: number;
   public title: string;
+  public error: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -62,6 +63,7 @@ export class AddUpdatePatientComponent implements OnInit {
 
   // @ts-ignore
   onFormSubmit(): void {
+    this.error = null;
     const patient: Patient = new Patient();
     const dob = new Date( this.patientform.controls.dob.value).toLocaleDateString();
 
@@ -72,17 +74,26 @@ export class AddUpdatePatientComponent implements OnInit {
     patient.sex = this.patientform.controls.sex.value;
     patient.address = this.patientform.controls.address.value;
     patient.phone = this.patientform.controls.phone.value;
-    console.log(patient.dob);
     try {
-      this.patientRequestService.addNewPatient(patient).subscribe( data => {
+      this.patientRequestService.addNewPatient(patient).subscribe(
+        data => {
         // @ts-ignore
         if (data){
           // @ts-ignore
           this.router.navigate(['patients/' + data.id], { replaceUrl: this.route });
         }
-      });
+      },
+        error => {
+          console.log('save err ?', error.error);
+          this.error = error.error;
+        });
       }catch (error){
-        console.log('save err', error);
+        console.log('save err =>', error.message);
       }
+  }
+
+  // tslint:disable-next-line:typedef
+  public close($event: MouseEvent) {
+    this.error = null;
   }
 }

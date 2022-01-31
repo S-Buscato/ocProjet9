@@ -1,11 +1,15 @@
 package com.noteapp.service;
 
+import com.noteapp.controller.NoteController;
 import com.noteapp.dto.NoteDto;
 import com.noteapp.dto.mapper.NoteMapper;
 import com.noteapp.exception.NoteNotFoundException;
 import com.noteapp.model.Note;
 import com.noteapp.repositories.NoteRepository;
 import com.noteapp.service.iservice.INoteService;
+import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
 import org.springframework.stereotype.Service;
@@ -14,17 +18,14 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Service
+@RequiredArgsConstructor(onConstructor =  @__(@Autowired))
 public class NoteService implements INoteService {
-    @Autowired
-    NoteRepository noteRepository;
+    private final NoteRepository noteRepository;
+    private final SequenceGeneratorService sequenceGeneratorService;
 
-    @Autowired
-    SequenceGeneratorService sequenceGeneratorService;
-
-    static Logger logger = Logger.getLogger(String.valueOf(NoteService.class));
+    private static final Logger logger = LogManager.getLogger(NoteService.class);
 
 
     @Override
@@ -75,7 +76,7 @@ public class NoteService implements INoteService {
     }
 
     @Override
-    public long deleteAllPatientNote(Long patientId) throws NoteNotFoundException {
+    public long deleteAllPatientNote(Long patientId) {
         if(!noteRepository.findAllByPatientIdOrderByIdDesc(patientId).isEmpty()) {
             noteRepository.deleteAllByPatientId(patientId);
         }
