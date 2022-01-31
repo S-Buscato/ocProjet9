@@ -4,9 +4,11 @@ import com.patientapp.dto.PatientDto;
 import com.patientapp.dto.PatientMapper;
 import com.patientapp.exception.PatientAllreadyExists;
 import com.patientapp.exception.PatientNotFoundException;
+import com.patientapp.exception.RequiredInputException;
 import com.patientapp.model.Patient;
 import com.patientapp.repositories.PatientRepository;
 import com.patientapp.service.Iservice.IPatientService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +17,10 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
+@RequiredArgsConstructor(onConstructor =  @__(@Autowired))
 public class PatientService implements IPatientService {
 
-    @Autowired
-    PatientRepository patientRepository;
+    private final PatientRepository patientRepository;
 
 
     @Override
@@ -31,7 +33,10 @@ public class PatientService implements IPatientService {
     }
 
     @Override
-    public PatientDto save(PatientDto patientDto) throws PatientAllreadyExists, PatientNotFoundException {
+    public PatientDto save(PatientDto patientDto) throws PatientAllreadyExists, PatientNotFoundException, RequiredInputException {
+        if(patientDto.getFirstname().isEmpty() || patientDto.getLastname().isEmpty() || patientDto.getDob() == null || patientDto.getSex() == null) {
+            throw new RequiredInputException();
+        }
         if(patientDto.getId() == 0 && patientRepository.findByFamily(patientDto.getFirstname(), patientDto.getLastname()).isPresent()) {
             throw new PatientAllreadyExists();
         }
@@ -46,6 +51,7 @@ public class PatientService implements IPatientService {
         patient.setDob(patientDto.getDob());
         patient.setSex(patientDto.getSex());
         patient.setPhone(patientDto.getPhone());
+
         return PatientMapper.INSTANCE.patientToPatientDTO(patientRepository.save(patient));
     }
 
@@ -69,10 +75,10 @@ public class PatientService implements IPatientService {
     }
 
     @Override
-    public PatientDto delete(PatientDto patientDto) throws PatientNotFoundException {
-        if(patientRepository.findById(patientDto.getId()).isPresent()) {
-            patientRepository.deleteById(patientDto.getId());
-            return patientDto;
+    public long delete(Long id) throws PatientNotFoundException {
+        if(patientRepository.findById(id).isPresent()) {
+            patientRepository.deleteById(id);;
+            return id;
         } else {
             throw new PatientNotFoundException();
         }

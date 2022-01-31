@@ -1,6 +1,6 @@
 <p class="text-center  m-5 h1 text-primary ">Liste des patients</p>
 
-<div class="mx-auto mb-3  col-10" *ngFor="let patient of patientList" >
+<div class="mx-auto mb-3 col-10 d-flex flex-row" *ngFor="let patient of patientList" >
     <button routerLink="/patients/{{patient.id}}"   class="card mx-auto col-4 mt-2">
         <h2 class="card-title text-capitalize text-primary ">{{patient.firstname}} {{patient.lastname}} </h2>
     </button>

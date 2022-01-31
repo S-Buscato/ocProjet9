@@ -11,7 +11,7 @@ import {catchError, retry} from 'rxjs/operators';
 
 export class PatientRequestService  {
 
-  urlApi = 'http://localhost:9002/patient';  // URL de l'API
+  urlApi = 'http://localhost:8080/patient';  // URL de l'API
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -32,6 +32,21 @@ export class PatientRequestService  {
         .pipe();
     }
 
+  getAgePatient(id: number): Observable<number> {
+    return this.http.get<number>(this.urlApi + '/calculateAge/' + id, )
+      .pipe();
+  }
+
+  getCalculatePatientRisk(id: number): Observable<any> {
+    return this.http.get(this.urlApi + '/calculateRisk/' + id, { responseType: 'text' })
+      .pipe();
+  }
+
+  getCalculatePatientRiskWhithoutDouble(id: number): Observable<any> {
+    return this.http.get(this.urlApi + '/calulateRiskWithoutDouble/' + id, { responseType: 'text' })
+      .pipe();
+  }
+
   searchPatient(patient: Patient): Observable<Patient> {
     return this.http.post<Patient>(this.urlApi + '/search', patient)
       .pipe(retry(1),
@@ -40,25 +55,24 @@ export class PatientRequestService  {
   }
 
   addNewPatient(patient: Patient): Observable<Patient> {
-    // @ts-ignore
-  return this.http.post<Patient>(this.urlApi + '/save', patient, this.httpOptions)
-      .pipe(
+  return this.http.post<Patient>(this.urlApi + '/save', patient, this.httpOptions);
+      /*.pipe(
         retry(1),
         catchError(this.handleError)
-      )/*.subscribe(
+      )*/; /*.subscribe(
       res => console.log('HTTP response', res),
       err => console.log('HTTP Error', err),
   () => console.log('HTTP request completed.')
     );*/
   }
 
-  deletePatient(patient: Patient): Observable<Patient> {
+  deletePatient(id: number): Observable<number> {
     // @ts-ignore
-    return this.http.post<Patient>(this.urlApi + '/delete', patient, this.httpOptions)
+    return this.http.delete(this.urlApi + '/delete/' + id, this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)
-      )/*.subscribe(
+      ); /*.subscribe(
         res => console.log('HTTP response', res),
         err => console.log('HTTP Error', err),
     () => console.log('HTTP request completed.')

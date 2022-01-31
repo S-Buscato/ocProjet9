@@ -2,11 +2,13 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="noteapp" />
+        <module name="mediscreen" />
       </profile>
       <profile name="Annotation profile for patientApp" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -21,12 +23,14 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="mediscreen" target="1.8" />
       <module name="noteapp" target="1.5" />
       <module name="patientapp" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="mediscreen" options="-parameters" />
       <module name="patientapp" options="-parameters" />
     </option>
   </component>

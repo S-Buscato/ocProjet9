@@ -6,6 +6,7 @@ import com.patientapp.exception.PatientAllreadyExists;
 import com.patientapp.exception.PatientNotFoundException;
 import com.patientapp.model.Patient;
 import com.patientapp.service.PatientService;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,13 +33,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@RequiredArgsConstructor(onConstructor =  @__(@Autowired))
 public class PatientControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    ObjectMapper objectMapper;
+    private final MockMvc mockMvc;
+    private final ObjectMapper objectMapper;
 
     @MockBean
     PatientService patientService;
@@ -184,31 +183,28 @@ public class PatientControllerTest {
     void testDeletePatientNotFoundException() throws Exception {
         PatientNotFoundException e = new PatientNotFoundException();
 
-        when(patientService.delete(any(PatientDto.class))).thenThrow(e);
+        when(patientService.delete(anyLong())).thenThrow(e);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/patient/delete")
+        mockMvc.perform(MockMvcRequestBuilders.delete("/patient/delete/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(patientDto))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
 
-        verify(patientService, times(1)).delete(any(PatientDto.class));
+        verify(patientService, times(1)).delete(anyLong());
     }
 
     @Test
     @DisplayName("test delete patient succes")
     void testDeletePatient() throws Exception {
 
-        when(patientService.delete(any(PatientDto.class))).thenReturn(patientDto);
+        when(patientService.delete(anyLong())).thenReturn(1L);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/patient/delete")
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/patient/delete/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(patientDto))
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isAccepted())
+                        .andExpect(status().isAccepted());
 
-                .andExpect(jsonPath("$.firstname", is(patientDto.getFirstname())));
-
-        verify(patientService, times(1)).delete(any(PatientDto.class));
+        verify(patientService, times(1)).delete(anyLong());
     }
 }

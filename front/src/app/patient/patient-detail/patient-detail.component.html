@@ -1,15 +1,38 @@
-<p class=" text-center  m-5 h1 text-primary ">Fiche Patient</p>
-  <div *ngIf="patient" class="mx-auto mb-3 col-10">
-    <div  class="card mx-auto col-4 mt-2 p-3">
-      <h2 class="card-title text-capitalize text-primary ">{{patient.firstname}} {{patient.lastname}} </h2>
-      <p class="card-text font-weight-bold m-0 ml-2">Date de naissance : {{patient.dob}}</p>
-      <p class="card-text font-weight-bold m-0 ml-2">Sex : {{patient.sex}}</p>
-      <p class="card-text font-weight-bold m-0 ml-2">Numéro de téléphone : {{patient.phone}}</p>
-      <p class="card-text font-weight-bold m-0 ml-2">Adresse : {{patient.address}}</p>
-      <button routerLink="/patients/add/{{patient.id}}" class="ml-5 btn btn-primary mb-2 mt-3">Modifier la fiche</button>
-      <button routerLink="/note/add/{{patient.id}}" class="ml-5 btn btn-secondary mb-2">Saisir une nouvelle note</button>
-      <button routerLink="/patients/note/{{patient.id}}" class="ml-5 btn btn-secondary mb-2">Voir l'historique</button>
-      <button (click)="deletePatient()" class="ml-5 btn btn-danger  mb-2" >Supprimer la fiche</button>
+<p class=" text-center  m-5 h1">Fiche Patient</p>
+
+  <div *ngIf="patient" class="mx-auto col-10">
+
+    <div  class="card mx-auto border-secondary col-8 p-2">
+      <div class="card-body">
+        <div class = "row">
+          <div class="card-header text-center">
+            <h2 class="card-title  text-capitalize text-primary ">  {{patient.firstname}} {{patient.lastname}} ({{age}} ans)</h2>
+          </div>
+          <div *ngIf="risk" class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{risk}}</strong>
+            <button type="button" class="btn-close" (click)="close($event)" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
+          <div class="col-8 mb-1 mt-1">
+            <h5 class="card-title m-0 ml-2"><sp class="">Date de naissance : </sp>{{patient.dob}}</h5>
+            <p class="card-text m-0 ml-2"><sp class="">Sex : </sp>{{patient.sex}}</p>
+            <p class="card-text m-0 ml-2"><sp class="">Numéro de téléphone : </sp>{{patient.phone}}</p>
+            <p class="card-text m-0 ml-2"><sp class="">Adresse : </sp>{{patient.address}}</p>
+          </div>
+
+        </div>
+        <div class="row mt-2">
+          <button routerLink="/patients/add/{{patient.id}}" class="mx-auto col-4 btn btn-primary mb-2 ">Modifier la fiche</button>
+          <button routerLink="/note/add/{{patient.id}}" class="mx-auto col-4 btn btn-success mb-2">Saisir une nouvelle note</button>
+        </div>
+        <div class="row">
+          <button (click)="deletePatient()" class="mx-auto col-4 btn btn-danger mb-2" >Supprimer la fiche</button>
+          <button routerLink="/patients/note/{{patient.id}}" class="mx-auto col-4 btn btn-secondary mb-2 ">Voir l'historique</button>
+        </div>
+      </div>
+      <button (click)="calculPatientRisk()" class="mx-auto col-8 btn btn-warning">Calculer le risque</button>
+      <button (click)="calculPatientRiskWhithoutDouble()" class="mx-auto col-8 btn btn-danger">Calculer le risque (sans double)</button>
+
     </div>
   </div>
 
