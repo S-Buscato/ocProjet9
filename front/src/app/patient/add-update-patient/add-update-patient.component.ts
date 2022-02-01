@@ -36,7 +36,7 @@ export class AddUpdatePatientComponent implements OnInit {
       this.id = this.route.snapshot.params.id;
       this.patientRequestService.getPatient(this.id).subscribe(
         data => {
-          this.patient = data;
+          this.patient = data.body;
           const dob = this.patient.dob.split("/").reverse().join("-");
           this.patientform = this.fb.group({
             firstname: new FormControl(this.patientService.capitalize(this.patient.firstname), Validators.required),
@@ -80,7 +80,7 @@ export class AddUpdatePatientComponent implements OnInit {
         // @ts-ignore
         if (data){
           // @ts-ignore
-          this.router.navigate(['patients/' + data.id], { replaceUrl: this.route });
+          this.router.navigate(['patients/' + data.body.id], { replaceUrl: this.route });
         }
       },
         error => {

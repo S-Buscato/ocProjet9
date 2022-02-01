@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import { Patient } from '../model/patient';
 import {catchError, retry} from 'rxjs/operators';
@@ -27,8 +27,8 @@ export class PatientRequestService  {
         .pipe();
       }
 
-  getPatient(id: number): Observable<Patient> {
-      return this.http.get<Patient>(this.urlApi + '/' + id)
+  getPatient(id: number): Observable<HttpResponse<Patient>> {
+      return this.http.get<HttpResponse<Patient>>(this.urlApi + '/' + id)
         .pipe();
     }
 
@@ -47,23 +47,12 @@ export class PatientRequestService  {
       .pipe();
   }
 
-  searchPatient(patient: Patient): Observable<Patient> {
-    return this.http.post<Patient>(this.urlApi + '/search', patient)
-      .pipe(retry(1),
-        catchError(this.handleError)
-      );
+  searchPatient(patient: Patient): Observable<HttpResponse<Patient>> {
+    return this.http.post<HttpResponse<Patient>>(this.urlApi + '/search', patient);
   }
 
-  addNewPatient(patient: Patient): Observable<Patient> {
-  return this.http.post<Patient>(this.urlApi + '/save', patient, this.httpOptions);
-      /*.pipe(
-        retry(1),
-        catchError(this.handleError)
-      )*/; /*.subscribe(
-      res => console.log('HTTP response', res),
-      err => console.log('HTTP Error', err),
-  () => console.log('HTTP request completed.')
-    );*/
+  addNewPatient(patient: Patient): Observable<HttpResponse<Patient>> {
+  return this.http.post<HttpResponse<Patient>>(this.urlApi + '/save', patient, this.httpOptions);
   }
 
   deletePatient(id: number): Observable<number> {
@@ -72,11 +61,7 @@ export class PatientRequestService  {
       .pipe(
         retry(1),
         catchError(this.handleError)
-      ); /*.subscribe(
-        res => console.log('HTTP response', res),
-        err => console.log('HTTP Error', err),
-    () => console.log('HTTP request completed.')
-      );*/
+      );
   }
 
 

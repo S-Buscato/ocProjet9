@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "microservice-note", url = "localhost:9003")
 /*
-@FeignClient(name = "microservice-note", url = "noteApp:9003")
+@FeignClient(name = "microservice-note", url = "localhost:9003")
 */
+@FeignClient(name = "microservice-note", url = "noteApp:9003")
 public interface MicroserviceNoteProxy {
 
     @GetMapping("/note/{id}")

@@ -16,8 +16,9 @@ export class PatientSearchComponent implements OnInit {
   patientform: FormGroup;
 
   public patient: Patient;
-  public patientNotFound: boolean;
   public formNotComplete: boolean;
+  public error: string;
+
 
   constructor( private route: ActivatedRoute,
                private fb: FormBuilder,
@@ -26,7 +27,6 @@ export class PatientSearchComponent implements OnInit {
                private patientService: PatientService) { }
 
   ngOnInit(): void {
-    this.patientNotFound = false;
     this.formNotComplete = false;
     this.patientform = this.fb.group({
       firstname: new FormControl('', [Validators.required]),
@@ -35,24 +35,27 @@ export class PatientSearchComponent implements OnInit {
   }
 
   onFormSubmit(): void {
+    this.error = null;
     if (this.patientform.controls.firstname.value  !== '' && this.patientform.controls.lastname.value !== '') {
-      this.patientNotFound = false;
       const patient: Patient = new Patient();
       patient.firstname = this.patientService.capitalize(this.patientform.controls.firstname.value);
       patient.lastname = this.patientService.capitalize(this.patientform.controls.lastname.value);
       this.formNotComplete = false;
       try {
-        this.patientRequestService.searchPatient(patient).subscribe( data => {
+        this.patientRequestService.searchPatient(patient).subscribe(
+          data => {
           // @ts-ignore
-          if (data.id !== 0){
+          if (data.body.id !== 0){
             // @ts-ignore
-            this.patient = data;
+            this.patient = data.body;
             // @ts-ignore
-            this.router.navigate(['patients/' + data.id], { replaceUrl: this.route });
-          }else{
-            this.patientNotFound = true;
+            this.router.navigate(['patients/' + data.body.id], { replaceUrl: this.route });
           }
-        });
+        },
+          error => {
+            console.log('search err ?', error.error);
+            this.error = error.error;
+          });
       }catch (error){
         console.log('search err', error);
       }

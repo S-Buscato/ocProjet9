@@ -25,7 +25,7 @@ export class NoteListComponent implements OnInit {
     this.id = this.route.snapshot.params.id;
     this.noteRequestService.getPatientNote(this.id).subscribe(
       noteData => {
-        this.notes = noteData;
+        this.notes = noteData.body;
       }
     );
   }

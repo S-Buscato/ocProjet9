@@ -30,7 +30,8 @@ export class PatientDetailComponent implements OnInit {
     this.id = this.route.snapshot.params.id;
     this.patientRequestService.getPatient(this.id).subscribe(
       data => {
-        this.patient = data;
+        this.patient = data.body;
+        console.log(data.body);
       }
     );
 

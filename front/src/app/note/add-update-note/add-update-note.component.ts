@@ -29,7 +29,7 @@ export class AddUpdateNoteComponent implements OnInit {
       this.idNote = this.route.snapshot.params.idNote;
       this.noteRequestService.getNote(this.idNote).subscribe(
         data => {
-          this.note = data;
+          this.note = data.body;
           this.noteform = this.fb.group({
             note: new FormControl(this.note.note, Validators.required),
           });

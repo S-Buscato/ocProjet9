@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {Patient} from '../model/patient';
 import {catchError, retry} from 'rxjs/operators';
@@ -20,13 +20,13 @@ export class NoteRequestService {
 
   constructor(private http: HttpClient) {}
 
-  getNote(id: number): Observable<Note> {
-    return this.http.get<Note>(this.urlApi + '/' + id)
+  getNote(id: number): Observable<HttpResponse<Note>> {
+    return this.http.get<HttpResponse<Note>>(this.urlApi + '/' + id)
       .pipe();
   }
 
-  getPatientNote(id: number): Observable<Note[]> {
-    return this.http.get<Note[]>(this.urlApi + '/search/' + id)
+  getPatientNote(id: number): Observable<HttpResponse<Note[]>> {
+    return this.http.get<HttpResponse<Note[]>>(this.urlApi + '/search/' + id)
       .pipe();
   }
 
@@ -43,11 +43,7 @@ export class NoteRequestService {
       .pipe(
         retry(1),
         catchError(this.handleError)
-      )/*.subscribe(
-      res => console.log('HTTP response', res),
-      err => console.log('HTTP Error', err),
-  () => console.log('HTTP request completed.')
-    );*/
+      )
   }
 
   deletePatientNote(id: number): Observable<any> {
@@ -56,11 +52,7 @@ export class NoteRequestService {
       .pipe(
         retry(1),
         catchError(this.handleError)
-      )/*.subscribe(
-        res => console.log('HTTP response', res),
-        err => console.log('HTTP Error', err),
-    () => console.log('HTTP request completed.')
-      );*/
+      )
   }
 
   deleteAllPatientNote(patientId: number): Observable<number> {
@@ -69,11 +61,7 @@ export class NoteRequestService {
       .pipe(
         retry(1),
         catchError(this.handleError)
-      )/*.subscribe(
-        res => console.log('HTTP response', res),
-        err => console.log('HTTP Error', err),
-    () => console.log('HTTP request completed.')
-      );*/
+      )
   }
 
 
