@@ -23,9 +23,16 @@ We Have a solution for you .
 
 ## Installation
 ***
-* git clone ...
-**FRONT**
+* git clone https://github.com/S-Buscato/ocProjet9.git
+* **FRONT**
+***
+cd mediscreen/front 
+npm install
+ng serve
 
+* **BACK**
+***
+cd mediscreen/back
 * make each docker image for in each java project
 * in patientApp run this command :
 * >  docker build -t patientapp . 
