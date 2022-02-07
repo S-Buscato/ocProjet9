@@ -5,8 +5,8 @@
 2. [Technologies](#technologies)
 2. [Installation](#technologies)
 ***
+
 ## General Info
-***
 Mediscreen specializes in detecting risk factors for disease.
 Our screenings using predictive analysis of patient populations at affordable cost.
   - Are you small or rual clinic or practice ?
@@ -14,25 +14,25 @@ Our screenings using predictive analysis of patient populations at affordable co
 We Have a solution for you .
 
 ## Technologies
-***
 * [JAVA]
 * [PostgresSql]
 * [MongoDb] 
 * [Docker]
 * [Angular]
 
+***
 ## Installation
-***
 * git clone https://github.com/S-Buscato/ocProjet9.git
-* **FRONT**
-***
-cd mediscreen/front 
-npm install
-ng serve
 
-* **BACK**
 ***
-cd mediscreen/back
+* **FRONT**
+* > cd mediscreen/front 
+* > npm install
+* > ng serve
+
+***
+* **BACK**
+* > cd mediscreen/back
 * make each docker image for in each java project
 * in patientApp run this command :
 * >  docker build -t patientapp . 
