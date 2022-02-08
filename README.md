@@ -53,6 +53,8 @@ We Have a solution for you .
 * >  docker tag mediscreen-server:latest mediscreen-server:v1.0.0
 
 ***
-* then, run the docker compose in Mediscreen.
+* then, 
+* > back\mediscreen> docker-compose up
+
 
     
